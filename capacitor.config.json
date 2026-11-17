@@ -1,0 +1,6 @@
+d": "com.worldpulse.app",
+  "appName": "World Pulse",
+    "webDir": "www",
+      "server": { "androidScheme": "https" },
+        "android": { "backgroundColor": "#0b1118" }
+	}
