@@ -1,8 +1,8 @@
-
 {
   "appId": "com.worldpulse.app",
   "appName": "World Pulse",
   "webDir": "www",
   "server": { "androidScheme": "https" },
-  "android": { "backgroundColor": "#0b1118" }
+  "android": { "backgroundColor": "#0b1118" },
+  "plugins": { "CapacitorHttp": { "enabled": true } }
 }

@@ -70,15 +70,12 @@
   'use strict';
 
   var GEO_URL = 'https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json';
-  var BASE = { color:'#3b5169', weight:0.8, fillColor:'#16222f', fillOpacity:0.35 };
+  var BASE = { color:'#3b5169', weight:0.8, fillColor:'#1a2a3b', fillOpacity:0.9 };
   var HOVER = { color:'#6fc3ff', weight:1.5, fillColor:'#1f3a52', fillOpacity:0.55 };
   var SELECTED = { color:'#6fc3ff', weight:2.5, fillColor:'#2a6aa0', fillOpacity:0.6 };
 
   var map = L.map('map', { zoomControl:false, minZoom:2, maxZoom:10, worldCopyJump:true, zoomSnap:0.25,
     maxBounds:[[-85,-220],[85,220]], maxBoundsViscosity:0.8 }).setView([20,10], 2);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
-    subdomains:'abcd', maxZoom:10, attribution:'&copy; OpenStreetMap &copy; CARTO'
-  }).addTo(map);
 
   var layers = {};      // id -> layer
   var names = [];       // [{id, name}]
@@ -241,7 +238,8 @@
     });
   }
 
-  function fetchRss(rss) {
+  function fetchRss(rss) { return fetch(rss).then(function (r) { if (!r.ok) throw new Error("d"); return r.text(); }).then(parseXml).catch(function () { return fetchRssProxy(rss); }); }
+  function fetchRssProxy(rss) {
     return fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(rss))
       .then(function (r) { if (!r.ok) throw new Error('ao'); return r.text(); })
       .then(parseXml)
